@@ -19,7 +19,7 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          docker.image("calculator-app:latest").run("-d -p 8080:8080")
+          docker.image("calculator-app:latest").run("-d -p 8081:8080")
         }
       }
     }
