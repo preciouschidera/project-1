@@ -11,7 +11,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          docker.build("calculator-app:latest")
+          docker.build("leocrita/calculator-app:latest")
         }
       }
     }
@@ -19,7 +19,17 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          docker.image("calculator-app:latest").run("-d -p 8081:8080")
+          docker.image("leocrita/calculator-app:latest").run("-d -p 8081:8080")
+        }
+      }
+    }
+
+    stage('Push Docker Image') {
+      steps {
+        script {
+          docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
+            docker.image("leocrita/calculator-app:latest").push()
+          }
         }
       }
     }
