@@ -23,15 +23,5 @@ pipeline {
         }
       }
     }
-
-    stage('Push Docker Image') {
-      steps {
-        script {
-          docker.withRegistry('https://index.docker.io/v1/', 'docker-hub-creds') {
-            docker.image("leocrita/calculator-app:latest").push()
-          }
-        }
-      }
-    }
   }
-}
+} 
