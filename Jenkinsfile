@@ -11,7 +11,7 @@ pipeline {
     stage('Build Docker Image') {
       steps {
         script {
-          docker.build("leocrita/calculator-app:latest")
+          docker.build("calculator-app:latest")
         }
       }
     }
@@ -19,7 +19,7 @@ pipeline {
     stage('Run Docker Container') {
       steps {
         script {
-          docker.image("leocrita/calculator-app:latest").run("-d -p 8081:8080")
+          docker.image("calculator-app:latest").run("-d -p 8081:8080")
         }
       }
     }
