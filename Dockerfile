@@ -6,4 +6,8 @@ RUN mvn clean package
 
 # Stage 2: Runtime
 FROM tomcat:9.0.85
+EXPOSE 8080
 COPY --from=builder /app/target/WebAppCal-1.3.5.war /usr/local/tomcat/webapps/calculator.war
+
+
+
