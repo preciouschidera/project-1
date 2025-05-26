@@ -1,0 +1,13 @@
+- name: Delete Kubernetes Cluster using kops
+  hosts: masters
+  become: yes
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ aws_aaccess_key  }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
+  tasks:
+    - name: Delete k8s cluster
+      shell: |
+        export KOPS_STATE_STORE=s3://{{ kops_s3_bucket }}
+        export NAME={{ cluster_name }}
+        kops delete cluster --name=${NAME} --state=${KOPS_STATE_STORE} --yes
+

@@ -1,0 +1,21 @@
+- name: Create Kubernetes Cluster using kops
+  hosts: masters
+  become: yes
+  environment:
+    AWS_ACCESS_KEY_ID: "{{ aws_access_key }}"
+    AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
+  tasks:
+    - name: Export cluster config
+      shell: |
+        export KOPS_STATE_STORE=s3://{{ kops_s3_bucket }}
+        export NAME={{ cluster_name }}
+        kops create cluster \
+          --name=${NAME} \
+          --state=${KOPS_STATE_STORE} \
+          --zones=eu-west-2a,eu-west-2b \
+          --node-count=2 \
+          --node-size=t2.medium \
+          --master-size=t2.medium \
+          --dns-zone={{ hosted_zone_name }} \
+          --yes
+
