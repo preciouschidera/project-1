@@ -11,8 +11,8 @@ pipeline {
     stage('Deploy to Kubernetes') {
       steps {
         sh '''
-          kubectl apply -f calculator-deployment.yaml
-          kubectl apply -f calculator-service.yaml
+          kubectl apply -f calculator-deployment.yaml --validate=false
+          kubectl apply -f calculator-service.yaml --validate=false
         '''
       }
     }
