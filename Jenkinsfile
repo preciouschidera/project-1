@@ -10,9 +10,12 @@ pipeline {
 
     stage('Deploy to Kubernetes') {
       steps {
-          sh 'kubectl apply -f calculator-deployment.yaml'
-          sh 'kubectl apply -f calculator-service.yaml'
-        }
+        sh '''
+          kubectl apply -f calculator-deployment.yaml
+          kubectl apply -f calculator-service.yaml
+        '''
       }
     }
+  }
+}
 
