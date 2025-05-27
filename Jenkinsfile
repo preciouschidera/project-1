@@ -4,24 +4,15 @@ pipeline {
   stages {
     stage('Clone Repo') {
       steps {
-        git branch: 'main', url: 'https://github.com/preciouschidera/project-1.git'
+        git branch: 'project-3', url: 'https://github.com/preciouschidera/project-1.git'
       }
     }
 
-    stage('Build Docker Image') {
+    stage('Deploy to Kubernetes') {
       steps {
-        script {
-          docker.build("calculator-app:latest")
+          sh 'kubectl apply -f calculator-deployment.yaml
+          sh 'kubectl apply -f calculator-service.yaml'
         }
       }
     }
 
-    stage('Run Docker Container') {
-      steps {
-        script {
-          docker.image("calculator-app:latest").run("-d -p 8081:8080")
-        }
-      }
-    }
-  }
-}
